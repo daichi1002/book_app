@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/model/books.dart';
+import 'package:flutter_app/view/books/detail.dart';
 import 'package:flutter_app/view/books/edit.dart';
 
 class BookList extends StatefulWidget {
@@ -74,14 +75,13 @@ class _BookListPageState extends State<BookList> {
                           ],
                         ),
                       ),
-                      // onTap: () async {
-                      //   await Navigator.of(context).push(
-                      //     MaterialPageRoute(
-                      //         builder: (context) =>
-                      //             BookDetail(id: book.id!)),
-                      //   );
-                      //   getBooksList();
-                      // },
+                      onTap: () async {
+                        await Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => BookDetail(id: book.id!)),
+                        );
+                        getBooksList();
+                      },
                     ),
                   );
                 },

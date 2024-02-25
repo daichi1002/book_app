@@ -113,7 +113,7 @@ class _BookEditState extends State<BookEdit> {
                   });
                 },
               ),
-            ),
+            )
           ]),
         ]),
       ),
