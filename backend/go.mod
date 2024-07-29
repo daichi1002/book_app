@@ -2,13 +2,9 @@ module github.com/daichi1002/book_app/backend
 
 go 1.22.3
 
-require (
-	github.com/99designs/gqlgen v0.17.47
-	github.com/go-sql-driver/mysql v1.8.1
-)
+require github.com/99designs/gqlgen v0.17.47
 
 require (
-	filippo.io/edwards25519 v1.1.0 // indirect
 	github.com/agnivade/levenshtein v1.1.1 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.4 // indirect
 	github.com/google/uuid v1.6.0 // indirect

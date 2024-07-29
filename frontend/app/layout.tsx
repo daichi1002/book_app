@@ -1,24 +1,26 @@
-import '@/app/ui/global.css';
-import { inter } from '@/app/ui/fonts';
-import { Metadata } from 'next';
- 
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import Header from "../components/layout/header/Header";
+import "./globals.css";
+
+const inter = Inter({ subsets: ["latin"] });
+
 export const metadata: Metadata = {
-  title: {
-    template: '%s | Acme Dashboard',
-    default: 'Acme Dashboard',
-  },
-  description: 'The official Next.js Learn Dashboard built with App Router.',
-  metadataBase: new URL('https://next-learn-dashboard.vercel.sh'),
+  title: "Book App",
+  description: "book app",
 };
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
-    <html lang="en">
-      <body className={`${inter.className} antialiased`}>{children}</body>
+    <html lang="ja">
+      <body className={inter.className}>
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }
