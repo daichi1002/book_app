@@ -1,9 +1,21 @@
-import BBSCardList from "@/components/BBSCardList";
+import ArticleCardList from "@/components/ArticleCardList";
+import { Article } from "./types/types";
 
-export default function Home() {
+const getArticles = async () => {
+  const response = await fetch("http://localhost:8080/articles", {
+    cache: "no-store",
+  });
+
+  const articles: Article[] = await response.json();
+
+  return articles;
+};
+
+export default async function Home() {
+  const articles = await getArticles();
   return (
     <main>
-      <BBSCardList />
+      <ArticleCardList articles={articles} />
     </main>
   );
 }

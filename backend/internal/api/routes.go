@@ -15,7 +15,12 @@ func NewRouter(db *sql.DB) http.Handler {
 	userService := services.NewUserService(userRepo)
 	userHandler := &handlers.UserHandler{Service: userService}
 
+	articleRepo := mysql.NewArticleRepository(db)
+	articleService := services.NewArticleService(articleRepo)
+	articleHandler := &handlers.ArticleHandler{Service: articleService}
+
 	r := mux.NewRouter()
 	r.HandleFunc("/user", userHandler.GetUser).Methods("GET")
+	r.HandleFunc("/articles", articleHandler.GetArticles).Methods("GET")
 	return r
 }

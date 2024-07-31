@@ -24,7 +24,7 @@ func LoadConfig() (*Config, error) {
 	}
 
 	// Construct DSN from environment variables
-	cfg.DB.DSN = fmt.Sprintf("%s:%s@tcp(%s:3306)/%s",
+	cfg.DB.DSN = fmt.Sprintf("%s:%s@tcp(%s:3306)/%s?parseTime=true",
 		os.Getenv("DB_USER"),
 		os.Getenv("DB_PASSWORD"),
 		os.Getenv("DB_HOST"),

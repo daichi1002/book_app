@@ -8,7 +8,7 @@ import (
 )
 
 func NewMySQL(dsn string) (*sql.DB, error) {
-	// fmt.Println(dsn)
+
 	db, err := sql.Open("mysql", dsn)
 	if err != nil {
 		return nil, err
