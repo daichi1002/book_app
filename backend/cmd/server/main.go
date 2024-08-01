@@ -2,12 +2,12 @@ package main
 
 import (
 	"log"
-	"net/http"
 
 	"github.com/daichi1002/book_app/backend/internal/api"
 	"github.com/daichi1002/book_app/backend/internal/config"
 	"github.com/daichi1002/book_app/backend/pkg/database"
 	"github.com/joho/godotenv"
+	"github.com/labstack/echo/v4"
 )
 
 func main() {
@@ -26,7 +26,10 @@ func main() {
 		log.Fatalf("could not connect to database: %v", err)
 	}
 
-	router := api.NewRouter(db)
-	log.Printf("Server starting on %s", cfg.Server.Address)
-	log.Fatal(http.ListenAndServe(cfg.Server.Address, router))
+	defer db.Close()
+
+	e := echo.New()
+	api.SetupRoutes(e, db)
+
+	log.Fatal(e.Start(cfg.Server.Address))
 }

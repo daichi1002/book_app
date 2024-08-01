@@ -1,22 +1,22 @@
 package handlers
 
 import (
-	"encoding/json"
 	"net/http"
 
 	"github.com/daichi1002/book_app/backend/internal/services"
+	"github.com/labstack/echo/v4"
 )
 
 type UserHandler struct {
 	Service services.UserService
 }
 
-func (h *UserHandler) GetUser(w http.ResponseWriter, r *http.Request) {
-	id := r.URL.Query().Get("id")
+func (h *UserHandler) GetUser(c echo.Context) error {
+	id := c.QueryParam("id")
 	user, err := h.Service.GetUser(id)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
 	}
-	json.NewEncoder(w).Encode(user)
+	
+	return c.JSON(http.StatusOK, user)
 }

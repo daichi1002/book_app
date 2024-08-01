@@ -42,3 +42,31 @@ func (r *ArticleRepository) GetArticles() ([]models.Article, error) {
 	}
 	return articles, nil
 }
+
+func (r *ArticleRepository) GetArticle(id int) (*models.Article, error) {
+	var article models.Article
+
+	row, err := r.DB.Query("SELECT id, title, content, created_at FROM articles WHERE id = ?", id)
+	if err != nil {
+		return nil, err
+	}
+
+	defer row.Close()
+
+	if !row.Next() {
+		return nil, nil
+	}
+
+	err = row.Scan(
+		&article.ID,
+		&article.Title,
+		&article.Content,
+		&article.CreatedAt,
+	)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &article, nil
+}

@@ -2,15 +2,14 @@ package api
 
 import (
 	"database/sql"
-	"net/http"
 
 	"github.com/daichi1002/book_app/backend/internal/api/handlers"
 	"github.com/daichi1002/book_app/backend/internal/repositories/mysql"
 	"github.com/daichi1002/book_app/backend/internal/services"
-	"github.com/gorilla/mux"
+	"github.com/labstack/echo/v4"
 )
 
-func NewRouter(db *sql.DB) http.Handler {
+func SetupRoutes(e *echo.Echo, db *sql.DB) {
 	userRepo := mysql.NewUserRepository(db)
 	userService := services.NewUserService(userRepo)
 	userHandler := &handlers.UserHandler{Service: userService}
@@ -19,8 +18,7 @@ func NewRouter(db *sql.DB) http.Handler {
 	articleService := services.NewArticleService(articleRepo)
 	articleHandler := &handlers.ArticleHandler{Service: articleService}
 
-	r := mux.NewRouter()
-	r.HandleFunc("/user", userHandler.GetUser).Methods("GET")
-	r.HandleFunc("/articles", articleHandler.GetArticles).Methods("GET")
-	return r
+	e.GET("/user", userHandler.GetUser)
+	e.GET("/articles", articleHandler.GetArticles)
+	e.GET("/articles/:id", articleHandler.GetArticle)
 }

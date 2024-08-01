@@ -8,4 +8,5 @@ type UserRepository interface {
 
 type ArticleRepository interface {
 	GetArticles() ([]models.Article, error)
+	GetArticle(id int) (*models.Article, error)
 }

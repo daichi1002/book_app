@@ -22,7 +22,7 @@ const ArticleCard = ({ article }: ArticleProps) => {
       </CardHeader>
       <CardContent>{content}</CardContent>
       <CardFooter className="flex justify-between">
-        <Link href={`/bbs-posts/${id}`} className="text-blue-500">
+        <Link href={`/articles/${id}`} className="text-blue-500">
           Read More
         </Link>
       </CardFooter>
