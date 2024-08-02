@@ -2,6 +2,7 @@ import { Article } from "@/app/types/types";
 import {
   Card,
   CardContent,
+  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -18,7 +19,7 @@ const ArticleCard = ({ article }: ArticleProps) => {
     <Card>
       <CardHeader>
         <CardTitle>{title}</CardTitle>
-        {/* <CardDescription>{createdAt}</CardDescription> */}
+        <CardDescription>{createdAt.toString()}</CardDescription>
       </CardHeader>
       <CardContent>{content}</CardContent>
       <CardFooter className="flex justify-between">

@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/daichi1002/book_app/backend/internal/models"
 	"github.com/daichi1002/book_app/backend/internal/services"
 	"github.com/labstack/echo/v4"
 )
@@ -33,4 +34,18 @@ func (h *ArticleHandler) GetArticle(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
 	}
 	return c.JSON(http.StatusOK, article)
+}
+
+func (h *ArticleHandler) CreateArticle(c echo.Context) error {
+	var request models.Article
+
+	if err := c.Bind(&request); err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
+	}
+
+	err := h.Service.CreateArticle(request)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
+	}
+	return c.JSON(http.StatusOK, nil)
 }

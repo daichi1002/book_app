@@ -1,8 +1,6 @@
 package services
 
 import (
-	"fmt"
-
 	"github.com/daichi1002/book_app/backend/internal/models"
 	"github.com/daichi1002/book_app/backend/internal/repositories"
 )
@@ -20,6 +18,9 @@ func (s *ArticleService) GetArticles() ([]models.Article, error) {
 }
 
 func (s *ArticleService) GetArticle(id int) (*models.Article, error) {
-	fmt.Println("-----")
 	return s.Repo.GetArticle(id)
+}
+
+func (s *ArticleService) CreateArticle(params models.Article) error {
+	return s.Repo.CreateArticle(params)
 }

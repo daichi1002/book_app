@@ -14,11 +14,12 @@ const getArticle = async (id: number) => {
 const page = async ({ params }: { params: { id: number } }) => {
   const article = await getArticle(params.id);
 
-  const { title, content } = article;
+  const { title, content, createdAt } = article;
   return (
     <div className="mx-auto max-w-4xl p-4">
       <div className="mb-8">
         <h1 className="text-2xl font-bold">{title}</h1>
+        <p className="text-gray-700">{createdAt.toString()}</p>
       </div>
 
       <div className="mb-8">

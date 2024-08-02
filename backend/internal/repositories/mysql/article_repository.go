@@ -70,3 +70,21 @@ func (r *ArticleRepository) GetArticle(id int) (*models.Article, error) {
 
 	return &article, nil
 }
+
+func (r *ArticleRepository) CreateArticle(params models.Article) error {
+
+	_, err := r.DB.Exec(
+		`INSERT INTO articles (
+			title,
+			content
+		) VALUES (?, ?);
+		`,
+		params.Title, params.Content,
+	)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
