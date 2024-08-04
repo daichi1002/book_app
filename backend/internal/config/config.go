@@ -24,11 +24,12 @@ func LoadConfig() (*Config, error) {
 	}
 
 	// Construct DSN from environment variables
-	cfg.DB.DSN = fmt.Sprintf("user=%s password=%s dbname=%s host=%s sslmode=disable",
+	cfg.DB.DSN = fmt.Sprintf("user=%s password=%s dbname=%s host=%s port=%s sslmode=disable",
 		os.Getenv("POSTGRES_USER"),
 		os.Getenv("POSTGRES_PASSWORD"),
 		os.Getenv("POSTGRES_DB"),
-		os.Getenv("DB_HOST"))
+		os.Getenv("DB_HOST"),
+		os.Getenv("DB_PORT"))
 
 	return &cfg, nil
 }
