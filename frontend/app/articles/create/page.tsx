@@ -25,7 +25,7 @@ const formSchema = z.object({
     .max(140, { message: "本文は140文字以内で入力してください。" }),
 });
 
-const page = () => {
+const Page = () => {
   const router = useRouter();
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -94,4 +94,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

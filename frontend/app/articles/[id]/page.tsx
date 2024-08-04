@@ -14,7 +14,7 @@ const getArticle = async (id: number) => {
   return article;
 };
 
-const page = async ({ params }: { params: { id: number } }) => {
+const Page = async ({ params }: { params: { id: number } }) => {
   const article = await getArticle(params.id);
 
   const { title, content, createdAt } = article;
@@ -39,4 +39,4 @@ const page = async ({ params }: { params: { id: number } }) => {
   );
 };
 
-export default page;
+export default Page;
