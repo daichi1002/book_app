@@ -1,4 +1,4 @@
-package mysql
+package db
 
 import (
 	"database/sql"
@@ -17,7 +17,7 @@ func NewUserRepository(db *sql.DB) repositories.UserRepository {
 
 func (r *UserRepository) GetUserByID(id string) (*models.User, error) {
 	user := &models.User{}
-	err := r.DB.QueryRow("SELECT id, name, age FROM users WHERE id = ?", id).Scan(&user.ID, &user.Name, &user.Age)
+	err := r.DB.QueryRow("SELECT id, name, age FROM users WHERE id = $1", id).Scan(&user.ID, &user.Name, &user.Age)
 	if err != nil {
 		return nil, err
 	}

@@ -1,4 +1,4 @@
-package mysql
+package db
 
 import (
 	"database/sql"
@@ -46,7 +46,7 @@ func (r *ArticleRepository) GetArticles() ([]models.Article, error) {
 func (r *ArticleRepository) GetArticle(id int) (*models.Article, error) {
 	var article models.Article
 
-	row, err := r.DB.Query("SELECT id, title, content, created_at FROM articles WHERE id = ?", id)
+	row, err := r.DB.Query("SELECT id, title, content, created_at FROM articles WHERE id = $1", id)
 	if err != nil {
 		return nil, err
 	}
@@ -77,7 +77,7 @@ func (r *ArticleRepository) CreateArticle(params models.Article) error {
 		`INSERT INTO articles (
 			title,
 			content
-		) VALUES (?, ?);
+		) VALUES ($1, $2);
 		`,
 		params.Title, params.Content,
 	)
