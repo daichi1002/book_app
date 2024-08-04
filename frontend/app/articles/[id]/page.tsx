@@ -2,9 +2,12 @@ import { Article } from "@/app/types/types";
 import Link from "next/link";
 
 const getArticle = async (id: number) => {
-  const response = await fetch(`http://localhost:8080/articles/${id}`, {
-    cache: "no-store",
-  });
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/articles/${id}`,
+    {
+      cache: "no-store",
+    }
+  );
 
   const article: Article = await response.json();
 

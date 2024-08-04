@@ -38,7 +38,7 @@ const page = () => {
   const onSubmit = async (value: z.infer<typeof formSchema>) => {
     const { title, content } = value;
     try {
-      await fetch("http://localhost:8080/articles/create", {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/articles/create`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
