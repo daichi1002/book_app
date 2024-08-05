@@ -32,7 +32,10 @@ func main() {
 	defer db.Close()
 
 	e := echo.New()
-	// CORSミドルウェアを設定
+
+	e.Use(middleware.RequestID())
+	e.Use(middleware.Logger())
+
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins: []string{os.Getenv("CORS_URL")}, // フロントエンドのオリジンを設定
 		AllowMethods: []string{http.MethodGet, http.MethodPost, http.MethodPut, http.MethodDelete, http.MethodOptions},
@@ -40,5 +43,5 @@ func main() {
 	}))
 	api.SetupRoutes(e, db)
 
-	log.Fatal(e.Start(cfg.Server.Address))
+	e.Logger.Fatal(e.Start(cfg.Server.Address))
 }

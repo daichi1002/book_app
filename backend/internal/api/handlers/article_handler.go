@@ -16,6 +16,7 @@ type ArticleHandler struct {
 func (h *ArticleHandler) GetArticles(c echo.Context) error {
 	articles, err := h.Service.GetArticles()
 	if err != nil {
+		c.Logger().Error(err)
 		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
 	}
 	return c.JSON(http.StatusOK, articles)
@@ -26,11 +27,13 @@ func (h *ArticleHandler) GetArticle(c echo.Context) error {
 
 	id, err := strconv.Atoi(param)
 	if err != nil {
+		c.Logger().Error(err)
 		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
 	}
 
 	article, err := h.Service.GetArticle(id)
 	if err != nil {
+		c.Logger().Error(err)
 		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
 	}
 	return c.JSON(http.StatusOK, article)
@@ -40,11 +43,13 @@ func (h *ArticleHandler) CreateArticle(c echo.Context) error {
 	var request models.Article
 
 	if err := c.Bind(&request); err != nil {
+		c.Logger().Error(err)
 		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
 	}
 
 	err := h.Service.CreateArticle(request)
 	if err != nil {
+		c.Logger().Error(err)
 		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
 	}
 	return c.JSON(http.StatusOK, nil)
