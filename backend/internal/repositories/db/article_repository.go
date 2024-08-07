@@ -17,7 +17,7 @@ func NewArticleRepository(db *sql.DB) repositories.ArticleRepository {
 
 func (r *ArticleRepository) GetArticles() ([]models.Article, error) {
 	var articles []models.Article
-	row, err := r.DB.Query("SELECT id, title, content, created_at FROM articles")
+	row, err := r.DB.Query("SELECT id, title, content, created_at FROM articles WHERE is_deleted = false;")
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +46,7 @@ func (r *ArticleRepository) GetArticles() ([]models.Article, error) {
 func (r *ArticleRepository) GetArticle(id int) (*models.Article, error) {
 	var article models.Article
 
-	row, err := r.DB.Query("SELECT id, title, content, created_at FROM articles WHERE id = $1", id)
+	row, err := r.DB.Query("SELECT id, title, content, created_at FROM articles WHERE id = $1 AND is_deleted = false;", id)
 	if err != nil {
 		return nil, err
 	}
@@ -80,6 +80,27 @@ func (r *ArticleRepository) CreateArticle(params models.Article) error {
 		) VALUES ($1, $2);
 		`,
 		params.Title, params.Content,
+	)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (r *ArticleRepository) DeleteArticle(id int) error {
+
+	_, err := r.DB.Exec(
+		`
+			UPDATE
+				articles
+			SET
+				is_deleted = TRUE
+			WHERE
+				id = $1;
+		`,
+		id,
 	)
 
 	if err != nil {

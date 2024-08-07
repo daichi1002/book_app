@@ -54,3 +54,20 @@ func (h *ArticleHandler) CreateArticle(c echo.Context) error {
 	}
 	return c.JSON(http.StatusOK, nil)
 }
+
+func (h *ArticleHandler) DeleteArticle(c echo.Context) error {
+	param := c.Param("id")
+
+	id, err := strconv.Atoi(param)
+	if err != nil {
+		c.Logger().Error(err)
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
+	}
+
+	err = h.Service.DeleteArticle(id)
+	if err != nil {
+		c.Logger().Error(err)
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
+	}
+	return c.JSON(http.StatusOK, nil)
+}

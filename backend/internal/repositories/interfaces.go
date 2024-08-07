@@ -10,4 +10,5 @@ type ArticleRepository interface {
 	GetArticles() ([]models.Article, error)
 	GetArticle(id int) (*models.Article, error)
 	CreateArticle(params models.Article) error
+	DeleteArticle(id int) error
 }
