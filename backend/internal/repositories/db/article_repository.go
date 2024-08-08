@@ -109,3 +109,23 @@ func (r *ArticleRepository) DeleteArticle(id int) error {
 
 	return nil
 }
+
+func (r *ArticleRepository) UpdateArticle(params models.Article) error {
+
+	_, err := r.DB.Exec(
+		`
+		UPDATE articles
+		SET title = $1,
+			content = $2
+		WHERE
+			id = $3
+		`,
+		params.Title, params.Content, params.ID,
+	)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}

@@ -71,3 +71,27 @@ func (h *ArticleHandler) DeleteArticle(c echo.Context) error {
 	}
 	return c.JSON(http.StatusOK, nil)
 }
+
+func (h *ArticleHandler) UpdateArticle(c echo.Context) error {
+	var request models.Article
+	param := c.Param("id")
+
+	id, err := strconv.Atoi(param)
+	if err != nil {
+		c.Logger().Error(err)
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
+	}
+
+	request.ID = id
+	if err := c.Bind(&request); err != nil {
+		c.Logger().Error(err)
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
+	}
+
+	err = h.Service.UpdateArticle(request)
+	if err != nil {
+		c.Logger().Error(err)
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
+	}
+	return c.JSON(http.StatusOK, nil)
+}

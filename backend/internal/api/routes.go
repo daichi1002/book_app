@@ -23,4 +23,5 @@ func SetupRoutes(e *echo.Echo, d *sql.DB) {
 	e.GET("/articles/:id", articleHandler.GetArticle)
 	e.POST("/articles/create", articleHandler.CreateArticle)
 	e.DELETE("/articles/:id", articleHandler.DeleteArticle)
+	e.PUT("/articles/edit/:id", articleHandler.UpdateArticle)
 }

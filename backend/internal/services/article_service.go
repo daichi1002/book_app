@@ -25,7 +25,10 @@ func (s *ArticleService) CreateArticle(params models.Article) error {
 	return s.Repo.CreateArticle(params)
 }
 
-
 func (s *ArticleService) DeleteArticle(id int) error {
 	return s.Repo.DeleteArticle(id)
+}
+
+func (s *ArticleService) UpdateArticle(params models.Article) error {
+	return s.Repo.UpdateArticle(params)
 }
