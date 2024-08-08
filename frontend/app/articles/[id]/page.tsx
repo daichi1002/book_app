@@ -1,7 +1,7 @@
 "use client";
 import { Article } from "@/app/types/types";
 import { Button } from "@/components/ui/button";
-import { Trash2 } from "lucide-react";
+import { FilePenLine, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -54,6 +54,9 @@ const Page = async ({ params }: { params: { id: number } }) => {
         >
           Back
         </Link>
+        <Button variant="outline" size="icon">
+          <FilePenLine className="h-4 w-4" onClick={deleteArticle} />
+        </Button>
         <Button variant="outline" size="icon">
           <Trash2 className="h-4 w-4" onClick={deleteArticle} />
         </Button>
